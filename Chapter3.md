@@ -53,7 +53,7 @@ An index is an additional structure that is derived from the primary data. Index
     - size-tiered compaction: levelDB and RocksDB, Cassandra
     - leveled compaction: HBase, Cassandra
     
-### Page Structured Storage Engine
+## Page Structured Storage Engine
 #### B-trees
  A very different design philosophy. Log-structured indexs break database down into variable-size segments, typicall several megabytes and more in zie, and always write a segment sequentially. By contrast, B-trees break the database down into fixed-size blocks or pages, traditionally 4KB in size(sometimes bigger), and read or write one page at a time.
 - Branching factor: number of child pahes in one page. Usually depends on the amount of space required to store the page references and the range boundaries(typically it is several hundreds)
