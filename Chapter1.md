@@ -7,13 +7,13 @@ The system should continue to work correctly (performing the correct function at
 - Its performance is good enough for the required use case, under the expected load and data volume.
 - The system prevents any unauthorized access and abuse.
 
-#### fault
+#### Fault
 A fault is usually defined as one component of the system deviating from its spec
-#### failure
+#### Failure
 A failure is when the system as a whole stops providing the required service to the user
-#### fault-tolerance mechanisms : prevent faults from causing failures.
+#### Fault-tolerance mechanisms : prevent faults from causing failures.
 
-#### software error (system faults)
+#### Software Errors (system faults)
 - A software bug that causes every instance of an application server to crash when given a particular bad input. For example, consider the leap second on June 30, 2012, that caused many applications to hang simultaneously due to a bug in the Linux kernel.
 - A runaway process that uses up some shared resource—CPU time, memory, disk space, or network bandwidth.
 - A service that the system depends on that slows down, becomes unresponsive, or starts returning corrupted responses.
@@ -30,7 +30,7 @@ As the system grows (in data volume, traffic volume, or complexity), there shoul
         -- hit rate on a cache
         -- etc
 
-#### twitter's fan-out problem: each user follows many people, each user is followed by many people
+#### Twitter's fan-out problem: each user follows many people, each user is followed by many people
 
 
 ### Maintainability
