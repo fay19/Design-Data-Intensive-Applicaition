@@ -54,13 +54,13 @@
         - writer’s schema and the reader’s schema don’t have to be the same - they oonly need to be compatible. when decoding, avro will resolve the difference by looking at writer's schema and reader's schema side by side and translate the data from writer's schema to reader's schema
       - dynamically generate schema
       
- ### Dataflow throught Database
+ ## Dataflow throught Database
  Schema evolution thus allows the entire database to appear as if it was encoded with a single schema, even though the underlying storage may contain records encoded with various historical versions of the schema
  
- ### Dataflow throught Services: REST and RPC
+ ## Dataflow throught Services: REST and RPC
  - microservice architecture
  
- ### Message-passing Dataflow
+ ## Message-passing Dataflow
  - message is not sent via a direct network connection, but goes via an intermediary called message broker(message queue/message oriented mmiddleware)
  - advantages over direct RPC:
   - can act as a buffer if the recipient is unavailable or overloaded, thus improve system reliablity
@@ -70,14 +70,14 @@
   - logically decouples the sender from the recipient
  - one-way comminunication : sender doesnt expect a response
 
-#### Message Brokers
+### Message Brokers
   - RabbitMQ, ActiveMQ, HornetQ, NATS, Apache Kafka
   - one process send a message to a named queue/topic, and the broker ensures that the message is delivered to one or more consumers of or subscribers to that queue or topic
   - there could be many producers and many consumers on the same topic
   - no enforcement of data model: message is just a sequence of bytes with some metadata
   - consumer may need to preserve unknown fields if it republishes message to another topic to avoid data overwrite
 
-#### Distributed Actor Frameworks
+### Distributed Actor Frameworks
   
 
  
