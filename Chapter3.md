@@ -28,7 +28,8 @@ HashIndex
     - Merging old segments avoids the problem of data files getting fragmented over time? 
   - limitations
     - size of index map must fit in memory. On disk hashmap hardly perform well and has collisions require fiddly logic
-SSTables (sorted string table)
+    
+ SSTables (sorted string table)
     - sort key-value pairs by key
     - each key only appears once within each merged segment file
     - advantages over hash indexes:
