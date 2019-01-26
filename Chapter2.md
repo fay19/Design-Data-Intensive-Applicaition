@@ -27,7 +27,7 @@
     - schema-on-read (similar to dynamic/run-time type checking)
     
 ### Graph-like Data Models
--Vertex
+- Vertex
   - a unique ID
   - a set of outgoing edges
   - a set of incoming edges
@@ -38,10 +38,10 @@
   - head vertex
   - a label to describe the kind of relationship between the two vertices
   - a collection of properties(key-value pairs)
--cypher: a declaritive query language for property graph database created in Neo4j graph database
+- cypher: a declaritive query language for property graph database created in Neo4j graph database
   
-  ### Triple-store and SPARQL
-  - equivalent to property graph
+ ### Triple-store and SPARQL
+ - equivalent to property graph
   
 
   
