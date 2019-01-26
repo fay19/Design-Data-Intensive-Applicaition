@@ -2,7 +2,7 @@
 
 ### Log Structured Storage Engine
 - Many database internally use a log, which is an append-only data file
-- An index is an additional structure that is derived from the primary data. Index introduce overhead of write operation.
+  - An index is an additional structure that is derived from the primary data. Index introduce overhead of write operation.
   - HashIndex
     - simple example of log hash index: keep an in-memory hashmap where every key is mapped t a byte offset in the data file
       - essentiallu what Bitcask(the default storage engine in Riak) does
