@@ -53,17 +53,63 @@ An index is an additional structure that is derived from the primary data. Index
     - size-tiered compaction: levelDB and RocksDB, Cassandra
     - leveled compaction: HBase, Cassandra
     
-## B-Trees
+### Page Structured Storage Engine
+#### B-trees
+ A very different design philosophy. Log-structured indexs break database down into variable-size segments, typicall several megabytes and more in zie, and always write a segment sequentially. By contrast, B-trees break the database down into fixed-size blocks or pages, traditionally 4KB in size(sometimes bigger), and read or write one page at a time.
+- Branching factor: number of child pahes in one page. Usually depends on the amount of space required to store the page references and the range boundaries(typically it is several hundreds)
+- (A four-level tree of 4 KB pages with a branching factor of 500 can store up to 256 TB.)
+- issues: 
+  - think overwrite a page on disk as a hardware operation
+  - some operation require several pages to be overwritte, for example, split a page because an insert caused it to be overful. If database crash when doing such operation, you end up with corrupted index(e.g., there may be an orphan page)
+    - make it resilient - WAL Log(write ahead log as a redo log)
+      - an append only file to which every B-tree modifications must be written before it can be applied to the pages of the tree itself
+  - careful concurrency control
+    - typically done with latches(lightweight locks)
+- Optimizations
+  - instead of WAL, use a copy-on-write scheme, a modified page is written to a different location, parent page will point to this new location
+  - save space in pages by packing more keys into a page, this results a higher branching factor, and thus fewer levels
+  - query requires access to multiple pages is expensive since a page can be positioned in anywhere. Leaf pages can be arraned in sequential order, but it is hard to maintain this as tree grows
+    - additional pointers can be added to the tree. For example, sibling pointers
+  - B-tree variants such as fractal trees [22] borrow some log-structured ideas to reduce disk seeks (and they have nothing to do with fractals).
+
+ ### Comparing B-trees and LSM-Trees
+ - rule of thumb: LSM trees are faster for writes, B-trees are faster for reads
+ - benchmarks are often inconclusive and sensitive the details of the workload
+ 
+ #### Advantage of LSM-tress
+  - write amplifications: a write in database may cause multiple writes to disk over database's lifetime
+    - B-trees must write twice(WAL log and the actual page)
+    - Log-structured indexes also rewrite data multiple times due to repeated compaction and merging of SSTables
+    - this is is particular concern on SSDs, which can only overwrite blocks a limited time before it wear out
+    - in write-heavy applications, write amplifications has a direct performace cost: the more that a storage engine writes to the disk, the fewer writes per second it can handle within the available disk bandwidth
+  - LSM-trees are typically able to sustain higher write throughput than B-trees.
+    - partially because lower write amplifications(case by case)
+    - partially sequentially write compact SSTables rather than overwrite to several pages in tree
+    - this difference is particularly important on magnetic hard drives, where sequential writes are much faster than random writes
+  - LSM-trees can be compressed better, thus produce smaller files on disk than B-trees. Lower storage overhead
+#### Downsides of LSM-trees
+  - compaction process sometimes can interfere with performance of write&read
+  - if compaction is configured carefully and write throughput is high, it can happen that compaction cannot keep up with rate of writes, and eventually run out of disk space, and read are also slow
+  
+  
+### Fuzzy Indexes
+ - trie
+ 
+### In-memory Database
+  - they are faster not because they dont need to read from disk(a disk-based storage engine may never need to read from diisk it you have enough memory, because OS cache), rather, they can be faster because they avoid the overheads of encoding in-memory data structures in a form that can be written to disk
+  - in-memory database can have data models that are difficult to implement with disk-based indexes. For example, Redis offers a database-like interface to various data structures like PQ and sets.
+  - LRU anti-cacheing approach of in memory databse to support datasets that larger than available memory
+  
+  
+### Transaction Processing or Analytics
+
+ 
+ 
 
 
-        
+
 
 
   
-      
-     
-      
-   
 
 
-### Page Structured Storage Engine
