@@ -23,12 +23,12 @@ A failure is when the system as a whole stops providing the required service to 
 As the system grows (in data volume, traffic volume, or complexity), there should be reasonable ways of dealing with that growth.
 
 #### Describe current load succinctly
-   -- load parameters
-        -- request per second to a web server
-        -- ratio of reads to writes in a database
-        -- numbers of simultaneoursly active users in a chat room
-        -- hit rate on a cache
-        -- etc
+   - load parameters
+        - request per second to a web server
+        - ratio of reads to writes in a database
+        - numbers of simultaneoursly active users in a chat room
+        - hit rate on a cache
+        - etc
 
 #### Twitter's fan-out problem: each user follows many people, each user is followed by many people
 --
