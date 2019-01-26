@@ -1,10 +1,9 @@
 #Storage and Retrieval
 
 ## Log Structured Storage Engine
-### Append-only log
-An index is an additional structure that is derived from the primary data. Index introduce overhead of write operation.
 
-#### HashIndex
+An index is an additional structure that is derived from the primary data. Index introduce overhead of write operation.
+#### HashIndex of Append-only log
   - simple example of log hash index: keep an in-memory hashmap where every key is mapped t a byte offset in the data file
     - essentiallu what Bitcask(the default storage engine in Riak) does
     - Bitcask offers high-performace reads and writes, subject to the requirement that all the keys fits in the available RAM since the hashmap keeps completely in memory
@@ -53,6 +52,8 @@ An index is an additional structure that is derived from the primary data. Index
   - when to compact:  
     - size-tiered compaction: levelDB and RocksDB, Cassandra
     - leveled compaction: HBase, Cassandra
+    
+## B-Trees
 
 
         
