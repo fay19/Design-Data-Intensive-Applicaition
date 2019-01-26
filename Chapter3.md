@@ -28,30 +28,30 @@
     - limitations
       - size of index map must fit in memory. On disk hashmap hardly perform well and has collisions require fiddly logic
    - SSTables (sorted string table)
-    - sort key-value pairs by key
-    - each key only appears once within each merged segment file
-    - advantages over hash indexes:
-      - merge segments is simple and efficient(merge sort)
-      - no need to keep an index of all keys in memory(an in memory index still needed, but can be sparse)
-      - group records and compress it before writing it to disk
-    - constructing and maintaining:
-      - red-black trees or AVL trees
-      - when a write comes, write to into memtable
-      - when memtbale gets bigger than some threshold(typicall a few megabytes) - write it out to disk as and SSTbale file
-      - a read request: find the memtable first, then on-disk segment,. then the next-older segment, etc
-      - merge and compact segment files in the background from time to time
-      - limitations:  
-        - when crash, most recent writes (in memory not on disk yet) are lost
-        - to avoid this, keep a separate log on disk tp which write is immediately appened(like above append only log), this log can be discarded when this memtable is written out to SSTable
-      - this is used in LevelDB and RocksDB
-    - LSM-Tree(Log-Structured Merge-Tree)
-      - can be slow ehen looking up keys do not exist in the database
-        - look memtable and segments files all the back to the oldest
-          - an additional bloom-filter and help to avoid this
-    - when to compact:  
-      - size-tiered compaction: levelDB and RocksDB, Cassandra
-      - leveled compaction: HBase, Cassandra
-      
+      - sort key-value pairs by key
+      - each key only appears once within each merged segment file
+      - advantages over hash indexes:
+        - merge segments is simple and efficient(merge sort)
+        - no need to keep an index of all keys in memory(an in memory index still needed, but can be sparse)
+        - group records and compress it before writing it to disk
+      - constructing and maintaining:
+        - red-black trees or AVL trees
+        - when a write comes, write to into memtable
+        - when memtbale gets bigger than some threshold(typicall a few megabytes) - write it out to disk as and SSTbale file
+        - a read request: find the memtable first, then on-disk segment,. then the next-older segment, etc
+        - merge and compact segment files in the background from time to time
+        - limitations:  
+          - when crash, most recent writes (in memory not on disk yet) are lost
+          - to avoid this, keep a separate log on disk tp which write is immediately appened(like above append only log), this log can be discarded when this memtable is written out to SSTable
+        - this is used in LevelDB and RocksDB
+      - LSM-Tree(Log-Structured Merge-Tree)
+        - can be slow ehen looking up keys do not exist in the database
+          - look memtable and segments files all the back to the oldest
+            - an additional bloom-filter and help to avoid this
+      - when to compact:  
+        - size-tiered compaction: levelDB and RocksDB, Cassandra
+        - leveled compaction: HBase, Cassandra
+
 
         
 
