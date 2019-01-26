@@ -1,10 +1,10 @@
-##Storage and Retrieval
+#Storage and Retrieval
 
-### Log Structured Storage Engine
-#### Append-only log
+## Log Structured Storage Engine
+### Append-only log
 An index is an additional structure that is derived from the primary data. Index introduce overhead of write operation.
 
-##### HashIndex
+#### HashIndex
   - simple example of log hash index: keep an in-memory hashmap where every key is mapped t a byte offset in the data file
     - essentiallu what Bitcask(the default storage engine in Riak) does
     - Bitcask offers high-performace reads and writes, subject to the requirement that all the keys fits in the available RAM since the hashmap keeps completely in memory
@@ -29,7 +29,7 @@ An index is an additional structure that is derived from the primary data. Index
   - limitations
     - size of index map must fit in memory. On disk hashmap hardly perform well and has collisions require fiddly logic
     
- ##### SSTables (sorted string table)
+ #### SSTables (sorted string table)
   - sort key-value pairs by key
   - each key only appears once within each merged segment file
   - advantages over hash indexes:
