@@ -45,4 +45,21 @@ Caught up by reading its log after wake up and request from leader of all data c
     - For example, in one incident at GitHub [13], an out-of-date MySQL follower was promoted to leader. The database used an autoincrementing counter to assign primary keys to new rows, but because the new leader’s counter lagged behind the old leader’s, it reused some primary keys that were previously assigned by the old leader. These primary keys were also used in a Redis store, so the reuse of primary keys resulted in inconsistency between MySQL and Redis, which caused some private data to be disclosed to the wrong users.
    - a scenario could happen that two node both believe they are the leader (split-brain)
    - what is the right timeout before declare the leader is dead?
+   
+ #### Implementation of Replication Logs
+ 
+ ##### Statement-based Replication
+ ##### Write-Ahead Log(WAL) Shipping
+  - a WAL contains details of which bytes were changed in which disk blocks
+  - make it very related to storage enginer, if follower has different engine with leader, it is not easy to read
+ ##### Logical(row-based) Log Replication
+  - inserted row - log contains the values of all columns
+  - delete row - log contains enough information to uniquely identify the row was deleted
+  - updated row - log contains enought information to uniquely identifu the updated row, and the new values of all columns
+  - makes it decoupled from storage engine
+##### Trigger-based Replication
+- register custom application code that is automatically execuated when a data change
+
+
+#### Problems with Replication Lag
  
