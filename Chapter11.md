@@ -52,6 +52,7 @@ The combination of durable storage approach of databases with low-latency messag
 - fault tolerance - replicating messages
 - trivially supports fan-out, because multiple consumers can indepently read the log without affecting each other - reading a message does not delete it from the log
 - partition the log to scale to high throughtput, a topic can be defined as a group of partitions that all carry messages of the same type. Different partition can be hosted on different machines, making each partition a seperate log that can be read and written independently from other partitions
+    -[alt text](https://github.com/fay19/Design-Data-Intensive-Applicaition/blob/master/partition_logs.png)
 
 ####Event Sourcing
 - immutable event log and mutable state
