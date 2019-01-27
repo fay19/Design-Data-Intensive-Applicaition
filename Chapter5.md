@@ -34,15 +34,15 @@ Replace failed nodes or increase number of replicas. How to ensure new followers
 Caught up by reading its log after wake up and request from leader of all data changes after it got disconnected
 
 ##### Leader Failure : Failover
-###### Automatic failover Process
-- Determined that leader has failed - timeout
-- Election - choose a new leader
-- Reconfigure system to use the new leader
-###### Things can go wrong
-- Asyn replication - conflict after old leader rejoins if there is unreplicated data when it failed
-   - this data usually get discarded
-- Discarding writes is especially dangerous if other storage system outside the database need to be cooridnated with database contents
-  - For example, in one incident at GitHub [13], an out-of-date MySQL follower was promoted to leader. The database used an autoincrementing counter to assign primary keys to new rows, but because the new leader’s counter lagged behind the old leader’s, it reused some primary keys that were previously assigned by the old leader. These primary keys were also used in a Redis store, so the reuse of primary keys resulted in inconsistency between MySQL and Redis, which caused some private data to be disclosed to the wrong users.
- - a scenario could happen that two node both believe they are the leader (split-brain)
- - what is the right timeout before declare the leader is dead?
+- Automatic failover Process
+    - Determined that leader has failed - timeout
+    - Election - choose a new leader
+    - Reconfigure system to use the new leader
+- Things can go wrong
+  - Asyn replication - conflict after old leader rejoins if there is unreplicated data when it failed
+     - this data usually get discarded
+  - Discarding writes is especially dangerous if other storage system outside the database need to be cooridnated with database contents
+    - For example, in one incident at GitHub [13], an out-of-date MySQL follower was promoted to leader. The database used an autoincrementing counter to assign primary keys to new rows, but because the new leader’s counter lagged behind the old leader’s, it reused some primary keys that were previously assigned by the old leader. These primary keys were also used in a Redis store, so the reuse of primary keys resulted in inconsistency between MySQL and Redis, which caused some private data to be disclosed to the wrong users.
+   - a scenario could happen that two node both believe they are the leader (split-brain)
+   - what is the right timeout before declare the leader is dead?
  
