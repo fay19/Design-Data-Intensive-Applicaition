@@ -34,10 +34,12 @@ Essentially a kind of database that is optimized for handling message streams. I
   - each message is deliveredd to one of the consumers(when messages are expensive to process)
 - Fan-out
   - Each message is delivered to all of the consumers
+  ![alt text](https://github.com/fay19/Design-Data-Intensive-Applicaition/blob/master/load_balancing_fan_out.png)
   
 ##### Acknowledgement and Delivery
 - A client must explicity tell the broker when it has finished processing a message so that the broker can remove it from the queue
 - A combination of load-balancing and redelivery can cause message out of order in consumer side
+![alt text](https://github.com/fay19/Design-Data-Intensive-Applicaition/blob/master/load_balancing_redelivery.png)
 
 #### Partitioned Logs
 Receiving a message is destructive if the acknowledgement causes it to be deleted from the broker, so you cannot run the same consumer and expect to get the same result, this is quite different from database. Database doesnt delete data until it is explicitly told so. A batching processing job can be runned repeatedly without the risk of damaging input.
