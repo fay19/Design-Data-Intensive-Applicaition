@@ -1,9 +1,9 @@
-## Reliable, Scalabler and Maintainable Applications
+## Reliable, Scalabl and Maintainable Applications
 
 ### Reliability
-The system should continue to work correctly (performing the correct function at the desired level of performance) even in the face of adversity (hardware or software faults, and even human error).
+The system should continue to work correctly (performing the correct function at the desired level of performance) even in the face of adversity (hardware/software faults/human error).
 - The application performs the function that the user expected.
-- It can tolerate the user making mistakes or using the software in unexpected ways.
+- It can tolerate that user making mistakes or using the software in unexpected ways.
 - Its performance is good enough for the required use case, under the expected load and data volume.
 - The system prevents any unauthorized access and abuse.
 
@@ -36,11 +36,11 @@ As the system grows (in data volume, traffic volume, or complexity), there shoul
    -- celebrity tweets problem
 - the distribution of followers per user (maybe weighted by how often those users tweet) is a key load parameter
 
-
 #### Describe Performance
 - When you increase a load parameter and keep the system resources (CPU, memory, network bandwidth, etc.) unchanged, how is the performance of your system affected?
 - When you increase a load parameter, how much do you need to increase the resources if you want to keep performance unchanged?
-- Batch processing - throughput, response time - time between sending a request and receive a response
+- Batch processing - throughput
+- Realtime service - response time
 - latency is different with reponse time, latency is the duration that a request is waiting to be handled
 - median(a.k.a percentails) is better than average when measuring service response time
 - outliers(95th, 99th, 99.9th) percentiles are also important
